@@ -1,0 +1,14 @@
+Django==4.1
+django-ckeditor==6.5.1
+django-extensions==3.2.3
+django-jazzmin==2.6.0
+django-paypal==2.0
+django-social-share==2.3.0
+django-taggit==3.1.0
+gunicorn==20.1.0
+mysqlclient==2.1.1
+Pillow==9.5.0
+six==1.16.0
+weasyprint==59.0
+whitenoise==6.5.0
+xhtml2pdf==0.2.11

@@ -1,0 +1,20 @@
+<div class="col-lg-4">
+    <div class="product__discount__item">
+        <div class="product__discount__item__pic set-bg"
+            data-setbg="{{prod.image.url}}">
+            <div class="product__discount__percent">-{{prod.calculate_percent_off}}%</div>
+            <ul class="product__item__pic__hover">
+                <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                <li><a href="#">
+                    <i class="fa fa-shopping-cart addtocart" data-pic="{{fprod.image.url}}" data-name="{{fprod.name}}" data-price="{{fprod.price}}" data-pid="{{fprod.id}}"></i>
+                    </a></li>
+            </ul>
+        </div>
+        <div class="product__discount__item__text">
+            <span>{{prod.category.cat_name}}</span>
+            <h5><a href="#">{{prod.name}}</a></h5>
+            <div class="product__item__price">${{prod.current_price}} <span>${{prod.price}}</span></div>
+        </div>
+    </div>
+</div>

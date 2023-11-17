@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body_content %}
+
+    {% include 'partials/breadcrumb.html' with pagetitle="Blog" %}
+
+    <!-- Blog Section Begin -->
+    <section class="blog spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-5">
+
+                    {% include 'partials/blogsidebar.html' with recent_posts=recent_posts %}
+
+                </div>
+                <div class="col-lg-8 col-md-7">
+                    <div class="row">
+                        
+                        {% for post in random_posts  %}
+                      
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="blog__item">
+                                <div class="blog__item__pic">
+                                    <img src="{{post.cover.url}}" alt="">
+                                </div>
+                                <div class="blog__item__text">
+                                    <ul>
+                                        <li><i class="fa fa-calendar-o"></i>{{post.date_posted}}</li>
+                                        <li><i class="fa fa-comment-o"></i> 5</li>
+                                    </ul>
+                                    <h5><a href="{% url 'postdetail' post.slug %}">{{post.title}}</a></h5>
+                                    <p>{{post.body | safe | truncatewords:"15"}} </p>
+                                    <a href="{% url 'postdetail' post.slug %}" class="blog__btn">READ MORE <span class="arrow_right"></span></a>
+                                </div>
+                            </div>
+                        </div>
+                              
+                        {% endfor %}
+                            
+                        <div class="col-lg-12">
+                            <div class="product__pagination blog__pagination">
+                                <a href="#">1</a>
+                                <a href="#">2</a>
+                                <a href="#">3</a>
+                                <a href="#"><i class="fa fa-long-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Blog Section End -->
+    {% endblock body_content %}
