@@ -19,8 +19,9 @@ def index(request):
     products = products_retrieved.order_by('-date_added')
     toprated = products_retrieved.annotate(avgrating = Avg('review__rating')).order_by('-avgrating')[:6]
     most_reviewed = products_retrieved.annotate(count= Count('review')).order_by('-count')[:6]
+    posts = Post.objects.all()[:3]
 
-    return render(request, 'index.html', {'featured': featured_products, 'products': products, 'top_rated': toprated, "most_reviewed": most_reviewed })
+    return render(request, 'index.html', {'featured': featured_products, 'products': products, 'top_rated': toprated, "most_reviewed": most_reviewed, 'posts': posts})
 
 
 def login(request):
