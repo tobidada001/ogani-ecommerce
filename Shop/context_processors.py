@@ -16,7 +16,7 @@ def contexts(request):
     categories = Category.objects.all()
     products_retrieved = Product.objects.all()
     randnum = random.randint(0, products_retrieved.count() - 1)
-    categories = PostCategory.objects.all()
+    pcategories = PostCategory.objects.all()
     tags = Tag.objects.all()
     large_featured_product = products_retrieved.all()[randnum]
 
@@ -28,4 +28,4 @@ def contexts(request):
 
     
 
-    return {'categories' : categories, 'total_in_wishlist': wishlist_total, 'large_fp': large_featured_product, 'categories': categories, 'tags': tags }
+    return {'categories' : categories, 'total_in_wishlist': wishlist_total, 'large_fp': large_featured_product, 'pcategories': pcategories, 'tags': tags }

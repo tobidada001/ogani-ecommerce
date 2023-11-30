@@ -188,7 +188,8 @@
                         <ul>
                             
                             {% for category in categories %}
-                                <li><a href="{% url 'category' id=category.id %}">{{category.cat_name}}</a></li>
+                                <li><a href="{% url 'category' id=category.id %}">{{category.cat_name}} </a></li>
+
                             {% endfor %}
                             
                         </ul>
