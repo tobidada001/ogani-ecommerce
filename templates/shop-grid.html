@@ -38,7 +38,7 @@
                                         </div>
                                         <div class="product__discount__item__text">
                                             <span>{{sop.category.cat_name}}</span>
-                                            <h5><a href="#">{{sop.name}}</a></h5>
+                                            <h5><a href="{% url 'detail' sop.id %}">{{sop.name}}</a></h5>
                                             <div class="product__item__price">${{sop.current_price}} <span>${{sop.price}}</span></div>
                                         </div>
                                     </div>
@@ -92,7 +92,7 @@
                                     </ul>
                                 </div>
                                 <div class="product__item__text">
-                                    <h6><a href="#">{{prod.name}}</a></h6>
+                                    <h6><a href="{% url 'detail' prod.id %}">{{prod.name}}</a></h6>
                                     <h5>${{prod.price}}</h5>
                                 </div>
                             </div>

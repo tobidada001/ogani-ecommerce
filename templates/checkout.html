@@ -132,13 +132,13 @@
                 Total <span id="total2">$0.00</span>
               </div>
              
-              <div class="checkout__input__checkbox">
+              {% comment %} <div class="checkout__input__checkbox">
                 <label for="payment">
                   Check Payment
                   <input type="radio" name="method"  value="check" id="payment" />
                   <span class="checkmark"></span>
                 </label>
-              </div>
+              </div> {% endcomment %}
               <div class="checkout__input__checkbox">
                 <label for="paypal">
                   Paypal
@@ -146,7 +146,8 @@
                   <span class="checkmark"></span>
                 </label>
               </div>
-              <button type="submit" class="site-btn">PLACE ORDER</button>
+              {% comment %} <button type="submit" class="site-btn">PLACE ORDER</button> {% endcomment %}
+                     {{form.render}}
             </div>
           </div>
         </div>

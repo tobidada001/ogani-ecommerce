@@ -31,6 +31,27 @@
       loadnavbartotal()
     })
 
+$('.tocartbtn').on('click', function(e){
+    var qty = $('#tocartqty').val()
+
+    var curpid = e.target.dataset.pid;
+      var name = e.target.dataset.name;
+      var price = e.target.dataset.price;
+      var image = e.target.dataset.pic;
+
+        
+      if (cart[curpid] != undefined) {
+        cart[curpid].quantity = cart[curpid].quantity + Number(qty);
+        
+      } else {
+        cart[curpid] = {quantity: 1, name : name, price: price, image: image};
+      }
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+      loadData(cart)
+      loadnavbartotal()
+
+})
 
 
 // Adding product to wishlist
