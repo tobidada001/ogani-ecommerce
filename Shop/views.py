@@ -110,14 +110,15 @@ def create_payment(request):
     order = None
     if request.session.get('cur_sess_orderid'):
         order = get_object_or_404(Order, id = request.session['cur_sess_orderid'])
-        pay_amount = order.order_items_set.aggregate(total_sum =Sum('total_price'))
+        pay_amount = order.orderitem_set.aggregate(total_sum =Sum('total_price'))
+        
 
 
 
  # What you want the button to do.
     paypal_dict = {
     "business": settings.PAYPAL_RECEIVER_EMAIL,
-    "amount": f"{float(pay_amount)}",
+    "amount": f"{float(pay_amount.get('total_sum', 0.00))}",
     "item_name": f"Order TODAY",
     "invoice": f"INV-CART-{order.id}",
     "notify_url": request.build_absolute_uri(reverse('paypal-ipn')),
@@ -146,7 +147,9 @@ def payment_failed(request):
 
 
 def checkout(request):
+    form = PayPalPaymentsForm()
     if request.method == 'POST':
+        print('YEEEEEEEEES WORKING!!!!!!!!!!!')
         firstname = request.POST.get('firstname')
         lastname = request.POST.get('lastname')
         country = request.POST.get('country')
@@ -161,7 +164,7 @@ def checkout(request):
         shippingaddress = request.POST.get('shippingaddress')
         order_notes = request.POST.get('order_notes')
         cartitems = request.POST.get('cartitems')
-        method = request.POST.get('method')
+        method = request.POST.get('method', 'paypal')
         name = f"{firstname} {lastname}"
         full_home_address = f'{res_address} \n {apartment_address}'
         
@@ -197,14 +200,36 @@ def checkout(request):
                 orderitem.save()
             
 
-        if request.POST.get('method') == 'paypal':
-            request.session['cur_sess_orderid'] = order.id
-            return redirect('create_payment')
+        # if request.POST.get('method', 'paypal') == 'paypal':
+        request.session['cur_sess_orderid'] = order.id
+        return redirect('create_payment')
         
-        elif request.POST.get('method') == 'check':
-            return redirect('cart')
+        # elif request.POST.get('method') == 'check':
+        #     return redirect('cart')
+
+    #     pay_amount = 0
+    #     order = None
+    #     if request.session.get('cur_sess_orderid'):
+    #         order = get_object_or_404(Order, id = request.session['cur_sess_orderid'])
+    #         pay_amount = order.orderitem_set.aggregate(total_sum =Sum('total_price'))
         
-    return render(request, 'checkout.html')
+
+
+
+    # # What you want the button to do.
+    #     paypal_dict = {
+    #     "business": settings.PAYPAL_RECEIVER_EMAIL,
+    #     "amount": f"{float(pay_amount.get('total_sum', 0.00))}",
+    #     "item_name": f"Order TODAY",
+    #     "invoice": f"INV-CART-{order.id}",
+    #     "notify_url": request.build_absolute_uri(reverse('paypal-ipn')),
+    #     "return": request.build_absolute_uri(reverse('payment_completed')),
+    #     "cancel_return": request.build_absolute_uri(reverse('payment_failed')),
+    #     # "custom": "premium_plan", # Custom command to correlate to some function
+    #     }
+
+        
+    return render(request, 'checkout.html', {'form': form})
 
 def post_detail(request, slug):
     post = get_object_or_404(Post, slug= slug)
